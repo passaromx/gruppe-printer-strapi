@@ -1,0 +1,22 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "strapi-hook-mongoose",
+      "settings": {
+        "client": "mongo",
+        "host": "ds015760.mlab.com",
+        "srv": false,
+        "port": "15760",
+        "database": "gruppe-printer-api",
+        "username": "gruppe-printer",
+        "password": "Ivanjuarez_2018"
+      },
+      "options": {
+        "authenticationDatabase": "gruppe-printer-api",
+        "ssl": false,
+        "useFindAndModify": false
+      }
+    }
+  }
+}

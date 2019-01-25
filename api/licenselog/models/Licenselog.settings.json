@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "licenselog",
+  "info": {
+    "name": "licenselog",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "mac": {
+      "default": "",
+      "type": "string"
+    },
+    "data": {
+      "default": "",
+      "type": "json"
+    },
+    "print": {
+      "model": "print"
+    }
+  }
+}

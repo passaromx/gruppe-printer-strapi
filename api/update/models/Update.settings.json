@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "update",
+  "info": {
+    "name": "update",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "model": {
+      "default": "label",
+      "type": "string"
+    },
+    "reference": {
+      "default": "",
+      "type": "string"
+    },
+    "data": {
+      "default": "",
+      "type": "json"
+    }
+  }
+}

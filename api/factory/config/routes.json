@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/factories",
+      "handler": "Factory.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/factories/count",
+      "handler": "Factory.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/factories/:_id",
+      "handler": "Factory.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/factories",
+      "handler": "Factory.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/factories/:_id",
+      "handler": "Factory.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/factories/:_id",
+      "handler": "Factory.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

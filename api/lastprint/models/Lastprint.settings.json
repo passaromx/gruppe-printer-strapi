@@ -1,0 +1,21 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "lastprint",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "date": {
+      "default": "",
+      "type": "date"
+    },
+    "data": {
+      "default": "",
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/lastprints",
+      "handler": "Lastprint.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lastprints/count",
+      "handler": "Lastprint.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lastprints/:_id",
+      "handler": "Lastprint.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/lastprints",
+      "handler": "Lastprint.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/lastprints/:_id",
+      "handler": "Lastprint.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/lastprints/:_id",
+      "handler": "Lastprint.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

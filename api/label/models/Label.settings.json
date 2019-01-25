@@ -1,0 +1,55 @@
+{
+  "connection": "default",
+  "collectionName": "label",
+  "info": {
+    "name": "label",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "sku": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "authorization": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "labelPdf": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "labelPng": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "client": {
+      "model": "client",
+      "via": "labels"
+    },
+    "deleted": {
+      "default": false,
+      "type": "boolean"
+    }
+  }
+}

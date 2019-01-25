@@ -1,0 +1,52 @@
+{
+  "connection": "default",
+  "collectionName": "client",
+  "info": {
+    "name": "client",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "settings": {
+      "default": "",
+      "type": "json"
+    },
+    "deleted": {
+      "default": false,
+      "type": "boolean"
+    },
+    "labels": {
+      "collection": "label",
+      "via": "client"
+    },
+    "factories": {
+      "collection": "factory",
+      "via": "client"
+    },
+    "users": {
+      "collection": "user",
+      "via": "client",
+      "plugin": "users-permissions"
+    },
+    "licenses": {
+      "collection": "license",
+      "via": "client"
+    },
+    "logo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "title": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}

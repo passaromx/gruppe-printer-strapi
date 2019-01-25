@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/licenses",
+      "handler": "License.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/licenses/count",
+      "handler": "License.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/licenses/:_id",
+      "handler": "License.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/licenses",
+      "handler": "License.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/licenses/:mac",
+      "handler": "License.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/licenses/:_id",
+      "handler": "License.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

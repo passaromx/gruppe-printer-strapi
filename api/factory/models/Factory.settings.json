@@ -1,0 +1,37 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "factory",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "code": {
+      "default": "",
+      "type": "string"
+    },
+    "contactName": {
+      "default": "",
+      "type": "string"
+    },
+    "email": {
+      "default": "",
+      "type": "string"
+    },
+    "phone": {
+      "default": "",
+      "type": "string"
+    },
+    "client": {
+      "model": "client",
+      "via": "factories"
+    }
+  }
+}

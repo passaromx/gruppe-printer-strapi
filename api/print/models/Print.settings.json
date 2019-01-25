@@ -1,0 +1,28 @@
+{
+  "connection": "default",
+  "collectionName": "print",
+  "info": {
+    "name": "print",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "label": {
+      "model": "label"
+    },
+    "data": {
+      "default": "",
+      "type": "json"
+    },
+    "user": {
+      "model": "user",
+      "plugin": "users-permissions"
+    },
+    "date": {
+      "default": "",
+      "type": "date"
+    }
+  }
+}

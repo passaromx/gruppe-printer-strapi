@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/licenselogs",
+      "handler": "Licenselog.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/licenselogs/count",
+      "handler": "Licenselog.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/licenselogs/:_id",
+      "handler": "Licenselog.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/licenselogs",
+      "handler": "Licenselog.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/licenselogs/:_id",
+      "handler": "Licenselog.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/licenselogs/:_id",
+      "handler": "Licenselog.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "connection": "default",
+  "collectionName": "license",
+  "info": {
+    "name": "license",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "hostname": {
+      "default": "",
+      "type": "string"
+    },
+    "mac": {
+      "default": "",
+      "type": "string"
+    },
+    "printerName": {
+      "default": "",
+      "type": "string"
+    },
+    "network": {
+      "default": "",
+      "type": "string"
+    },
+    "client": {
+      "model": "client",
+      "via": "licenses"
+    },
+    "print": {
+      "model": "print"
+    }
+  }
+}
