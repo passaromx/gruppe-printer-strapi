@@ -169,21 +169,7 @@ module.exports = {
     // Update entry with no-relational data.
     await Label.update(params, data, { multi: true });
     const size = label.client.settings.size || '4x6';
-    const _data = {};
-    Object.keys(label._doc).forEach(key => {
-      if(data[key]) {
-        if(label[key] != data[key]) {
-          _data[key] = data[key];
-        }
-      }
-    });
-
-    if(Object.keys(_data).length > 0){
-      await Update.create({
-        reference: params._id,
-        data: _data
-      });
-    }
+  
     if(values.hasOwnProperty('files')) {
       const source = 'content-manager';
       const files = values.files;
