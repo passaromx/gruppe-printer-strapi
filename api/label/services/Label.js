@@ -46,6 +46,8 @@ module.exports = {
       .skip(filters.start)
       .limit(filters.limit);
 
+    console.log('alllabels', allLabels);
+
     return {
       allLabels,
       labels,

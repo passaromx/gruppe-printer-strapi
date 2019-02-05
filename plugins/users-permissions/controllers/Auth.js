@@ -48,13 +48,12 @@ module.exports = {
       } else {
         query.username = params.identifier;
       }
-
+      // query.deleted = false;
       // Check if the user exists.
       const user = await strapi.query('user', 'users-permissions').findOne(query, ['role', 'client']);
       if (!user) {
         return ctx.unauthorized(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.invalid' }] }] : 'Identifier or password invalid.');
       }
-      
       if (_.get(await store.get({key: 'advanced'}), 'email_confirmation') && user.confirmed !== true) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.confirmed' }] }] : 'Your account email is not confirmed.');
       }
@@ -66,16 +65,20 @@ module.exports = {
       if (user.role.type !== 'root' && ctx.request.admin) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.noAdminAccess' }] }] : 'You\'re not an administrator.');
       }
-
       // The user never authenticated with the `local` provider.
       if (!user.password) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.password.local' }] }] : 'This user never set a local password, please login thanks to the provider used during account creation.');
       }
       const validPassword = strapi.plugins['users-permissions'].services.user.validatePassword(params.password, user.password);
-
       if (!validPassword) {
         return ctx.unauthorized('Identifier or password invalid.');
       } else {
+        user.lastLogin = Date.now();
+        const data = _.omit(user, strapi.plugins['users-permissions'].models.user.associations.map(ast => ast.alias));
+        console.log('user&data',user, data);
+
+        // Update the user.
+        await strapi.query('user', 'users-permissions').update(data);
         ctx.send({
           jwt: strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id'])),
           user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken'])
@@ -97,7 +100,7 @@ module.exports = {
       if (!user) {
         return ctx.badRequest(null, (error === 'array') ? (ctx.request.admin ? error[0] : error[1]) : error);
       }
-
+      
       ctx.send({
         jwt: strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user, ['_id', 'id'])),
         user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken'])

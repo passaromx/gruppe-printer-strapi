@@ -26,6 +26,7 @@ module.exports = {
   },
 
   download: async (ctx) => {
+    console.log('download');
     return strapi.services.label.fetchDownloads(ctx.query, ctx.request.body);
   },
 
