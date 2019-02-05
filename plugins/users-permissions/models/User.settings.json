@@ -52,6 +52,10 @@
     "client": {
       "model": "client",
       "via": "users"
+    },
+    "lastLogin": {
+      "default": "",
+      "type": "date"
     }
   },
   "collectionName": "users-permissions_user"
