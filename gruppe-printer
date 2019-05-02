@@ -1,0 +1,4 @@
+(node:20097) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:20097) DeprecationWarning: collection.update is deprecated. Use updateOne, updateMany, or bulkWrite instead.
+(node:20097) DeprecationWarning: collection.count is deprecated, and will be removed in a future version. Use collection.countDocuments or collection.estimatedDocumentCount instead
+(node:20097) DeprecationWarning: collection.remove is deprecated. Use deleteOne, deleteMany, or bulkWrite instead.
