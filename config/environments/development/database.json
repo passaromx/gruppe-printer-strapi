@@ -15,7 +15,9 @@
       "options": {
         "authenticationDatabase": "gruppe-printer-api",
         "ssl": false,
-        "useFindAndModify": false
+        "useFindAndModify": false,
+        "reconnectTries": 1000,
+        "reconnectInterval": 1000
       }
     }
   }
