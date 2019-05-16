@@ -44,9 +44,9 @@ module.exports = {
       .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
-      .limit(filters.limit);
+      // .limit(filters.limit);
 
-    console.log('alllabels', allLabels);
+    // console.log('alllabels', allLabels);
 
     return {
       allLabels,
