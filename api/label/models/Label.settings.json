@@ -54,6 +54,10 @@
     "description": {
       "default": "",
       "type": "string"
+    },
+    "settings": {
+      "default": "",
+      "type": "json"
     }
   }
 }
