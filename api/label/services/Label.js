@@ -43,7 +43,7 @@ module.exports = {
       .find({'related.ref': {$in: refs}})
       .where(filters.where)
       .sort(filters.sort)
-      .skip(filters.start)
+      .skip(filters.start);
       // .limit(filters.limit);
 
     // console.log('alllabels', allLabels);
@@ -116,6 +116,9 @@ module.exports = {
     const source = 'content-manager';
     // // Extract values related to relational data.
     const relations = _.pick(values, Label.associations.map(ast => ast.alias));
+    if (values.hasOwnProperty('fields') && values.fields.settings && values.fields.settings.length) {
+      values.fields.settings = JSON.parse(values.fields.settings);
+    }
     
     if (values.hasOwnProperty('fields') && values.hasOwnProperty('files')) {
       // Silent recursive parser.
@@ -167,6 +170,7 @@ module.exports = {
     const values_ = values.fields ? values.fields : values;
     const relations = _.pick(values_, Label.associations.map(a => a.alias));
     const data = _.omit(values_, Label.associations.map(a => a.alias));
+    if (data.settings && data.settings.length) data.settings = JSON.parse(data.settings);
     const label = await Label.findById(params._id).populate('client');
     // Update entry with no-relational data.
     await Label.update(params, data, { multi: true });
