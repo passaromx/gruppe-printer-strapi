@@ -47,6 +47,10 @@
     "title": {
       "default": "",
       "type": "string"
+    },
+    "authorizations": {
+      "collection": "authorization",
+      "via": "client"
     }
   }
 }
