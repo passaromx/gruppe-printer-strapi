@@ -73,6 +73,13 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    return strapi.services.authorization.remove(ctx.params);
+    const authorization = strapi.services.authorization.remove(ctx.params);
+    if(!authorization) return ctx.response.notFound();
+    return authorization;
+  },
+
+  deleteMany: async ctx => {  
+    const { query } = ctx;
+    return strapi.services.authorization.deleteMany(query);
   }
 };

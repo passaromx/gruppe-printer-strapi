@@ -71,7 +71,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       // .limit(filters.limit)
-      .populate(populate); 
+      .populate(populate)
+      .populate({
+        path: 'authorization',
+        populate: { path: 'authPdf' }
+      }); 
   },
 
   /**

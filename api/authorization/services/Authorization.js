@@ -31,7 +31,7 @@ module.exports = {
       .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
-      .limit(filters.limit)
+      // .limit(filters.limit)
       .populate(populate);
   },
 
@@ -75,9 +75,25 @@ module.exports = {
    */
 
   add: async (values) => {
+    const source = 'content-manager';
     // Extract values related to relational data.
     const relations = _.pick(values, Authorization.associations.map(ast => ast.alias));
     const data = _.omit(values, Authorization.associations.map(ast => ast.alias));
+
+    if(values.hasOwnProperty('fields') && values.hasOwnProperty('files')) {
+      const files = values.files;
+      const entry = await Authorization.create(values.fields);
+
+      if (strapi.plugins.upload && Object.keys(files).length > 0) {
+        await strapi.plugins.upload.services.upload.uploadToEntity({
+          id: entry.id || entry._id,
+          model: 'authorization'
+        }, files, source);
+      }
+
+      const authorization = await Authorization.updateRelations({ _id: entry.id, values: relations });
+      return authorization;
+    }
 
     // Create entry with no-relational data.
     const entry = await Authorization.create(data);
@@ -94,11 +110,32 @@ module.exports = {
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Authorization.associations.map(a => a.alias));
-    const data = _.omit(values, Authorization.associations.map(a => a.alias));
+    const values_ = values.fields ? values.fields : values;
+    const relations = _.pick(values_, Authorization.associations.map(a => a.alias));
+    const data = _.omit(values_, Authorization.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Authorization.update(params, data, { multi: true });
+    await Authorization.update(params, data, { multi: true });
+
+    if(values.hasOwnProperty('files')) {
+      const source = 'content-manager';
+      const files = values.files;
+      if (strapi.plugins.upload && Object.keys(files).length > 0) {
+        const updateFiles = Object.keys(files).map(async file => {
+          await strapi.plugins.upload.models.file.deleteMany({
+            'related.ref': params._id,
+            'related.field': file
+          });
+          
+          return file;
+        });
+        
+        await strapi.plugins.upload.services.upload.uploadToEntity({
+          id: params._id,
+          model: 'authorization'
+        }, files, source);
+      }
+    }
 
     // Update relational data and return the entry.
     return Authorization.updateRelations(Object.assign(params, { values: relations }));
@@ -111,41 +148,37 @@ module.exports = {
    */
 
   remove: async params => {
-    // Select field to populate.
-    const populate = Authorization.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+    const response = await Authorization.findOne({
+      id: params._id
+    });
 
-    // Note: To get the full response of Mongo, use the `remove()` method
-    // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Authorization
-      .findOneAndRemove(params, {})
-      .populate(populate);
+    if(!response) return null;
 
-    if (!data) {
-      return data;
-    }
+    await strapi.plugins.upload.models.file.deleteMany({
+      'related.ref': params._id
+    });
 
-    await Promise.all(
-      Authorization.associations.map(async association => {
-        if (!association.via || !data._id) {
-          return true;
-        }
+    return await Authorization.findOneAndDelete({
+      id: params._id
+    });
+  },
 
-        const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-        const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
+  deleteMany: async query => {
+    let ids = query.ids.split(','); 
+    ids = ids.length <= 0 ? query.ids : ids;
 
-        // Retrieve model.
-        const model = association.plugin ?
-          strapi.plugins[association.plugin].models[association.model || association.collection] :
-          strapi.models[association.model || association.collection];
+    const response = await Authorization.find({
+      id: {$in: ids}
+    });
+    if(!response) return null;
 
-        return model.update(search, update, { multi: true });
-      })
-    );
+    await strapi.plugins.upload.models.file.deleteMany({
+      'related.ref': {$in: ids}
+    });
 
-    return data;
+    return await Authorization.deleteMany({
+      _id: {$in: ids}
+    });
   },
 
   /**

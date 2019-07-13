@@ -42,6 +42,14 @@
     },
     {
       "method": "DELETE",
+      "path": "/authorizations/deleteMany",
+      "handler": "Authorization.deleteMany",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
       "path": "/authorizations/:_id",
       "handler": "Authorization.destroy",
       "config": {
