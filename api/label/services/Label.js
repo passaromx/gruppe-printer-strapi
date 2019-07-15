@@ -46,7 +46,8 @@ module.exports = {
       .skip(filters.start);
       // .limit(filters.limit);
 
-    // console.log('alllabels', allLabels);
+    console.log('labels', labels.length);
+    console.log('uploads', uploads.length);
 
     return {
       allLabels,
@@ -70,7 +71,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       // .limit(filters.limit)
-      .populate(populate); 
+      .populate(populate)
+      .populate({
+        path: 'authorization',
+        populate: { path: 'authPdf' }
+      }); 
   },
 
   /**
