@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/labels/restore",
+      "handler": "Label.restore",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/labels/:_id",
       "handler": "Label.update",
