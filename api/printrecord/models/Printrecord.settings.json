@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "printrecord",
+  "info": {
+    "name": "printrecord",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "sku": {
+      "default": "",
+      "type": "string"
+    },
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "score": {
+      "default": "",
+      "type": "integer"
+    },
+    "isRegistered": {
+      "default": false,
+      "type": "boolean"
+    },
+    "uid": {
+      "default": "",
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "printData": {
+      "default": "",
+      "type": "json"
+    }
+  }
+}
