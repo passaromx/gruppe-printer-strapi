@@ -34,6 +34,10 @@
     "printData": {
       "default": "",
       "type": "json"
+    },
+    "printedAt": {
+      "default": "",
+      "type": "date"
     }
   }
 }

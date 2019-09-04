@@ -167,18 +167,26 @@ module.exports = {
     let ids = query.ids.split(','); 
     ids = ids.length <= 0 ? query.ids : ids;
 
-    const response = await Authorization.find({
-      id: {$in: ids}
-    });
-    if(!response) return null;
+    const populate = Authorization.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias)
+      .join(' ');
 
-    await strapi.plugins.upload.models.file.deleteMany({
-      'related.ref': {$in: ids}
+    const items = await Authorization.find({ _id: { $in: ids } }).populate(populate);
+    // console.log(items);
+    // console.log(strapi.plugins.upload.models.file);
+
+    items.map(async item => {
+      // console.log(item);
+      await strapi.plugins.upload.models.file.findOneAndDelete({
+        _id: item.authPdf.related[0]
+      });
     });
 
     return await Authorization.deleteMany({
       _id: {$in: ids}
     });
+    return;
   },
 
   /**
