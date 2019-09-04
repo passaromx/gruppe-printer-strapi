@@ -15,5 +15,14 @@ module.exports = {
     const label = await strapi.services.zpl.uploadLabel(pdf, png, entry);
 
     return label;
+  },
+
+  restore: async(entry, path, size) => {
+    const zpl = await fs.readFileSync(path, 'utf8'); 
+    const pdf = await strapi.services.zpl.getPngOrPdf('pdf', zpl, {size});
+
+    const label = await strapi.services.zpl.uploadLabel(pdf, null, entry);
+
+    return label;
   }
 };

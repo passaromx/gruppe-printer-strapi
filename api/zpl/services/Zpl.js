@@ -40,7 +40,8 @@ module.exports = {
 
   uploadLabel: async (pdf, png, entry) => {
     return new Promise(async (resolve, reject) => {
-  
+      console.log(pdf);
+
       const files = {
         labelPdf: {
           path: pdf,
@@ -48,13 +49,16 @@ module.exports = {
           size: '0',
           type: 'application/pdf'
         },
-        labelPng: {
+      };
+
+      if (png) {
+        files.labelPng = {
           path: png,
           name: `${entry.sku}.png`,
           size: '0',
           type: 'image/png'
-        }
-      };
+        };
+      }
   
       await strapi.plugins.upload.services.upload.uploadToEntity({
         id: entry.id || entry._id,

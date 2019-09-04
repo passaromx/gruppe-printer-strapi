@@ -85,6 +85,11 @@ module.exports = {
     return strapi.services.label.edit(ctx.params, ctx.request.body) ;
   },
 
+  restore: async (ctx) => {
+    console.log(ctx.request.body);
+    return strapi.services.label.restorePdf(ctx.params, ctx.request.body);
+  },
+
   /**
    * Destroy a/an label record.
    *

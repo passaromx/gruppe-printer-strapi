@@ -111,6 +111,29 @@ module.exports = {
       .where(filters.where);
   },
 
+  restorePdf: async (params, values) => {
+    const { labelId } = values.fields;
+
+    const relations = _.pick(values, Label.associations.map(ast => ast.alias));
+    const entry = await Label.findById(labelId);
+    // console.log('label', entry);
+    await Label.populate(entry, 'client');
+    const size = entry.client.settings.size || '4x6';
+
+    const files = values.files;
+
+    if (Object.keys(files).length > 0) {
+      const path = files.file && files.file.path ? files.file.path : 'nolabel';
+      console.log('path', path);
+      path !== 'nolabel' && await strapi.controllers.zpl.restore(entry, path, size);
+      const label = await Label.updateRelations({ _id: entry.id, values: { description: '' } });
+      return label;
+    }
+
+    return false;
+
+  },
+
   /**
    * Promise to add a/an label.
    *
