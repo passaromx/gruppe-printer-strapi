@@ -54,6 +54,41 @@ module.exports = {
   },
 
   /**
+   * Promise to fetch a/an printrecord.
+   *
+   * @return {Promise}
+   */
+
+  fetchAndUpdate: async ctx => {
+
+    const { params } = ctx;
+    const values = { isRegistered: true };
+
+    const record = await Printrecord.findOne({ uid: params._id });
+    console.log(record);
+    if (record != null) {
+      const { isRegistered } = record;
+      if (isRegistered) {
+        // return 409
+        return ctx.response.conflict([], ['UID has already been registered']);
+      } else {
+        // Extract values related to relational data.
+        // const relations = _.pick(values, Printrecord.associations.map(a => a.alias));
+        const data = _.omit(values, Printrecord.associations.map(a => a.alias));
+
+        // Update entry with no-relational data.
+        return Printrecord.findOneAndUpdate({ uid: params._id }, data, { new: true });
+
+        // Update relational data and return the entry.
+        // return Printrecord.updateRelations(Object.assign(params, { values: relations }));
+      }
+    }
+
+    return ctx.response.notFound([], ['The requested code was not found']);
+    
+  },
+
+  /**
    * Promise to count printrecords.
    *
    * @return {Promise}

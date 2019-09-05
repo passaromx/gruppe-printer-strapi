@@ -70,7 +70,7 @@ module.exports = {
       .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
-      // .limit(filters.limit)
+      .limit(filters.limit)
       .populate(populate)
       .populate({
         path: 'authorization',

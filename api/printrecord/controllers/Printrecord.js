@@ -37,6 +37,21 @@ module.exports = {
   },
 
   /**
+   * Retrieve a printrecord record.
+   *
+   * @return {Object}
+   */
+
+  findOneAndUpdate: async (ctx) => {
+
+    // if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+    //   return ctx.notFound();
+    // }
+
+    return strapi.services.printrecord.fetchAndUpdate(ctx);
+  },
+
+  /**
    * Count printrecord records.
    *
    * @return {Number}
