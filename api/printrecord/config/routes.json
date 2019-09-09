@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/printrecords",
+      "handler": "Printrecord.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/printrecords/count",
+      "handler": "Printrecord.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/printrecords/:_id",
+      "handler": "Printrecord.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/printrecords/:_id/register",
+      "handler": "Printrecord.findOneAndUpdate",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/printrecords",
+      "handler": "Printrecord.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/printrecords/:_id",
+      "handler": "Printrecord.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/printrecords/:_id",
+      "handler": "Printrecord.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

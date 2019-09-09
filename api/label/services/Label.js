@@ -43,10 +43,11 @@ module.exports = {
       .find({'related.ref': {$in: refs}})
       .where(filters.where)
       .sort(filters.sort)
-      .skip(filters.start)
+      .skip(filters.start);
       // .limit(filters.limit);
 
-    // console.log('alllabels', allLabels);
+    console.log('labels', labels.length);
+    console.log('uploads', uploads.length);
 
     return {
       allLabels,
@@ -70,7 +71,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       // .limit(filters.limit)
-      .populate(populate); 
+      .populate(populate)
+      .populate({
+        path: 'authorization',
+        populate: { path: 'authPdf' }
+      }); 
   },
 
   /**
@@ -106,6 +111,29 @@ module.exports = {
       .where(filters.where);
   },
 
+  restorePdf: async (params, values) => {
+    const { labelId } = values.fields;
+
+    const relations = _.pick(values, Label.associations.map(ast => ast.alias));
+    const entry = await Label.findById(labelId);
+    // console.log('label', entry);
+    await Label.populate(entry, 'client');
+    const size = entry.client.settings.size || '4x6';
+
+    const files = values.files;
+
+    if (Object.keys(files).length > 0) {
+      const path = files.file && files.file.path ? files.file.path : 'nolabel';
+      console.log('path', path);
+      path !== 'nolabel' && await strapi.controllers.zpl.restore(entry, path, size);
+      const label = await Label.updateRelations({ _id: entry.id, values: { description: '' } });
+      return label;
+    }
+
+    return false;
+
+  },
+
   /**
    * Promise to add a/an label.
    *
@@ -116,6 +144,9 @@ module.exports = {
     const source = 'content-manager';
     // // Extract values related to relational data.
     const relations = _.pick(values, Label.associations.map(ast => ast.alias));
+    if (values.hasOwnProperty('fields') && values.fields.settings && values.fields.settings.length) {
+      values.fields.settings = JSON.parse(values.fields.settings);
+    }
     
     if (values.hasOwnProperty('fields') && values.hasOwnProperty('files')) {
       // Silent recursive parser.
@@ -167,6 +198,7 @@ module.exports = {
     const values_ = values.fields ? values.fields : values;
     const relations = _.pick(values_, Label.associations.map(a => a.alias));
     const data = _.omit(values_, Label.associations.map(a => a.alias));
+    if (data.settings && data.settings.length) data.settings = JSON.parse(data.settings);
     const label = await Label.findById(params._id).populate('client');
     // Update entry with no-relational data.
     await Label.update(params, data, { multi: true });

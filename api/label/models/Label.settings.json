@@ -25,12 +25,6 @@
       "plugin": "upload",
       "required": false
     },
-    "authorization": {
-      "model": "file",
-      "via": "related",
-      "plugin": "upload",
-      "required": false
-    },
     "labelPdf": {
       "model": "file",
       "via": "related",
@@ -54,6 +48,14 @@
     "description": {
       "default": "",
       "type": "string"
+    },
+    "settings": {
+      "default": "",
+      "type": "json"
+    },
+    "authorization": {
+      "model": "authorization",
+      "required": false
     }
   }
 }
