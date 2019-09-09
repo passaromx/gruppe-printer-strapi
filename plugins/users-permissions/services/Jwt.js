@@ -42,11 +42,12 @@ module.exports = {
 
   issue: (payload, jwtOptions = {}) => {
     _.defaults(jwtOptions, defaultJwtOptions);
-    return jwt.sign(
+    const token = jwt.sign(
       _.clone(payload.toJSON ? payload.toJSON() : payload),
       process.env.JWT_SECRET || _.get(strapi.plugins['users-permissions'], 'config.jwtSecret') || 'oursecret',
-      jwtOptions,
+      {},
     );
+    return token;
   },
 
   verify: (token) => {
