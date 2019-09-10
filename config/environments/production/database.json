@@ -5,16 +5,19 @@
       "connector": "strapi-hook-mongoose",
       "settings": {
         "client": "mongo",
-        "uri": "${process.env.DATABASE_URI || ''}",
-        "host": "${process.env.DATABASE_HOST || '127.0.0.1'}",
-        "port": "${process.env.DATABASE_PORT || 27017}",
-        "database": "${process.env.DATABASE_NAME || 'strapi-production'}",
-        "username": "${process.env.DATABASE_USERNAME || ''}",
-        "password": "${process.env.DATABASE_PASSWORD || ''}"
+        "host": "ds015760.mlab.com",
+        "srv": false,
+        "port": "15760",
+        "database": "gruppe-printer-api",
+        "username": "gruppe-printer",
+        "password": "Ivanjuarez_2018"
       },
       "options": {
-        "ssl": "${process.env.DATABASE_SSL || false}",
-        "authenticationDatabase": "${process.env.DATABASE_AUTHENTICATION_DATABASE || ''}"
+        "authenticationDatabase": "gruppe-printer-api",
+        "ssl": false,
+        "useFindAndModify": false,
+        "reconnectTries": 1000,
+        "reconnectInterval": 1000
       }
     }
   }
