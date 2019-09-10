@@ -26,7 +26,7 @@ module.exports = {
   },
 
   download: async (ctx) => {
-    console.log('download');
+    // console.log('download');
     return strapi.services.label.fetchDownloads(ctx.query, ctx.request.body);
   },
 
@@ -69,7 +69,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     const created = await strapi.services.label.add(ctx.request.body);
     return created;
   },
@@ -81,12 +81,12 @@ module.exports = {
    */
 
   update: async (ctx) => {
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     return strapi.services.label.edit(ctx.params, ctx.request.body) ;
   },
 
   restore: async (ctx) => {
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     return strapi.services.label.restorePdf(ctx.params, ctx.request.body);
   },
 

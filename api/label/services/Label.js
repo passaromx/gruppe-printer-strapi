@@ -46,8 +46,8 @@ module.exports = {
       .skip(filters.start);
       // .limit(filters.limit);
 
-    console.log('labels', labels.length);
-    console.log('uploads', uploads.length);
+    // console.log('labels', labels.length);
+    // console.log('uploads', uploads.length);
 
     return {
       allLabels,
@@ -124,7 +124,7 @@ module.exports = {
 
     if (Object.keys(files).length > 0) {
       const path = files.file && files.file.path ? files.file.path : 'nolabel';
-      console.log('path', path);
+      // console.log('path', path);
       path !== 'nolabel' && await strapi.controllers.zpl.restore(entry, path, size);
       const label = await Label.updateRelations({ _id: entry.id, values: { description: '' } });
       return label;

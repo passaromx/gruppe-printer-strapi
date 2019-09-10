@@ -148,7 +148,7 @@ module.exports = {
 
 
     const record = await Printrecord.findOne({ uid: params._id });
-    console.log(record);
+    // console.log(record);
     if (record != null) {
       const { isRegistered } = record;
       if (isRegistered) {

@@ -25,7 +25,7 @@ module.exports = {
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
-    console.log(populate);
+    // console.log(populate);
     return Client
       .find({deleted: false})
       .where(filters.where)

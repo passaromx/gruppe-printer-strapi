@@ -10,9 +10,9 @@ const fs = require('fs');
 module.exports = {
   getPngOrPdf: (format, zpl, params) => {
     return new Promise((resolve, reject) => {
-      console.log(params);
+      // console.log(params);
       const url = `http://api.labelary.com/v1/printers/8dpmm/labels/${params ? params.size : '4.25x7.83'}/0/`;
-      console.log(url);
+      // console.log(url);
       const options = {
         url,
         headers: {
@@ -28,7 +28,7 @@ module.exports = {
         const filename = `/tmp/${Math.random()}.${format}`;
         fs.writeFile(filename, body, function(err) {
           if (err) {
-            console.log(err);
+            // console.log(err);
             reject(err);
           }
           resolve(filename);
@@ -40,7 +40,7 @@ module.exports = {
 
   uploadLabel: async (pdf, png, entry) => {
     return new Promise(async (resolve, reject) => {
-      console.log(pdf);
+      // console.log(pdf);
 
       const files = {
         labelPdf: {
